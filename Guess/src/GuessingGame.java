@@ -3,21 +3,24 @@ import java.util.Scanner;
 public class GuessingGame {
 	
 	public static int getRandom(int min, int max) {
-		return (int)(Math.random() * (max + 1) +min);
+		return (int)(Math.random() * ((max - min)) + 1) + min;
 	}
 	
 	public static void main(String[] args) {
-		
-		int guess, min, max, randomNumber;
-		String numb = new String();
-		String end = new String();
+
 		String loopResponse = "Yes";
-		Scanner scan = new Scanner(System.in);
 		
 		do {
+
+			int guess, min, max, randomNumber;
+			String numb = new String();
+			String end = new String();
+			Scanner scan = new Scanner(System.in);
 			
 			System.out.println("Welcome to the guessing game! \nEnter two integers you want to guess between: ");
+			System.out.println("Min: ");
 			min = scan.nextInt();
+			System.out.println("Max: ");
 			max = scan.nextInt();
 			
 			randomNumber = getRandom(min, max);
@@ -42,15 +45,11 @@ public class GuessingGame {
 					System.out.println("Correct! You win!");
 					break;
 					
-				} else if(guess > max) {
+				} else if(guess > max || guess < min) {
 					System.out.println("That guess is not within the parameters you set. " +end);
 				
-				} else if(guess < min) {
-					System.out.println("That guess is not within the parameters you set. " +end);
-					
 				} else if(guess > randomNumber) {
 					System.out.println("Your guess is too high. " +end);
-					
 					
 				} else if(guess < randomNumber) {
 					System.out.println("Your guess is too low. " +end);
@@ -59,8 +58,10 @@ public class GuessingGame {
 				
 			} 
 			System.out.println("Would you like to play again?");
-			loopResponse = scan.next();
+			loopResponse = scan.next().toLowerCase();
 			
-		} while(loopResponse.equals("Yes"));
+		} while(loopResponse.equals("yes") || loopResponse.equals("y"));
+		
+		System.out.println("Understandable, have a nice day!");
 	}
 }
